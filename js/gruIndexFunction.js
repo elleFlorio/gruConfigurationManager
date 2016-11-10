@@ -196,7 +196,8 @@ var gestisciRiga = function(tableID, classPrefix, indexSuffix) {
         keyCell.appendChild(input);
 
         if (tableID == "tableOfEnvironmentVariables" 
-          || tableID == "tableOfServiceConstraints"){
+          || tableID == "tableOfServiceConstraints"
+          || tableID == "tableOfServiceImageLevels"){
             var valueCell = row.insertCell(1);
             input = document.createElement("input");
             input.type = "text";
@@ -257,7 +258,8 @@ var fixIndexTable = function(table, tableID, classPrefix) {
         var keyCellID = table.rows[r].cells[0].className;
 
         if (tableID == "tableOfEnvironmentVariables" 
-          || tableID == "tableOfServiceConstraints"){
+          || tableID == "tableOfServiceConstraints"
+          || tableID == "tableOfServiceImageLevels"){
           document.getElementsByClassName(keyCellID)[2].className = classPrefix+r;
         }
 
@@ -577,6 +579,9 @@ var readServiceConfig = function(nomeServizio, idServizio) {
   // Clean table Of Service Constraints
   cleanTableContents("tableOfServiceConstraints")
 
+  // Clean table Of Service Images
+  cleanTableContents("tableOfServiceImageLevels")
+
   var cluster = document.getElementById("dropbtnCluster").value;
 
   var analyticsList = document.getElementsByClassName("analyticsCheckbox");
@@ -603,6 +608,8 @@ var readServiceConfig = function(nomeServizio, idServizio) {
 
   clearServiceErrors();
 
+  document.getElementsByClassName("tServImg1")[1].value = "";
+  document.getElementsByClassName("tServImg1")[2].value = "";
   document.getElementsByClassName("tServCon1")[1].value = "";
   document.getElementsByClassName("tServCon1")[2].value = "";
   document.getElementsByClassName("tEnv1")[1].value = "";
@@ -613,7 +620,7 @@ var readServiceConfig = function(nomeServizio, idServizio) {
     // The fields will be empty
     document.getElementById("serviceName").value = "";
     document.getElementById("serviceType").value = "";
-    document.getElementById("serviceImage").value = "";
+    document.getElementById("serviceImageActive").value = "";
     serviceRemote = "";
     portaGuest = "";
     porteHost = "";
@@ -638,7 +645,16 @@ var readServiceConfig = function(nomeServizio, idServizio) {
 
     document.getElementById("serviceName").value = m.Name;
     document.getElementById("serviceType").value = m.Type;
-    document.getElementById("serviceImage").value = m.Image;
+    document.getElementById("serviceImageActive").value = m["Image"]["Active"];
+    var num = 1;
+    for (var img in m.Image.Levels){
+      marcatoreNuovaRiga = false;
+      document.getElementsByClassName("tServImg"+num)[1].value = img;
+      gestisciRiga("tableOfServiceImageLevels","tServImg",num);
+      document.getElementsByClassName("tServImg"+num)[2].value = m.Image.Levels[img];
+      num++;
+    }
+
     document.getElementById("serviceDiscoveryPort").value = m.DiscoveryPort;
     if (listaAnalitiche){
       for (var i1 in listaAnalitiche.childNodes){
@@ -653,7 +669,7 @@ var readServiceConfig = function(nomeServizio, idServizio) {
       }
     }
 
-    var num = 1;
+    num = 1;
     for (var envVar in m.Constraints){
       marcatoreNuovaRiga = false;
       document.getElementsByClassName("tServCon"+num)[1].value = envVar;
@@ -989,7 +1005,9 @@ var writeServiceConfig = function() {
   var m = {
       "Name":document.getElementById("serviceName").value,
       "Type":document.getElementById("serviceType").value,
-      "Image":document.getElementById("serviceImage").value,
+      "Image":{
+        "Active":document.getElementById("serviceImageActive").value,
+      },
       "Remote":serviceRemote,
       "DiscoveryPort":document.getElementById("serviceDiscoveryPort").value,
       "Analytics": [],
@@ -2630,7 +2648,7 @@ var clearServiceErrors = function (){
 
   document.getElementById("serviceType").style.backgroundColor = "#fff";
 
-  document.getElementById("serviceImage").style.backgroundColor = "#fff";
+  document.getElementById("serviceImageActive").style.backgroundColor = "#fff";
 
   document.getElementById("serviceDiscoveryPort").style.backgroundColor = "#fff";
 

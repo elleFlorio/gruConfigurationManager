@@ -418,8 +418,34 @@
             <label>Type</label> 
             <input class="form-control" type=text id=serviceType value="">
             <br>
-            <label>Image</label> 
-            <input class="form-control" type=text id=serviceImage value="">
+            <label><strong>Image</strong></label>
+            <br>
+            <label>Active</label> 
+            <input class="form-control" type=text id=serviceImageActive value="">
+            <br>
+            <table class="table table-hover" id="tableOfServiceImageLevels">
+                <tr>
+                    <label>Levels</labe>
+                    <th>
+                        LEVEL
+                    </th>
+                    <th>
+                        IMAGE
+                    </th>
+                </tr>
+                <tr>
+                    <td class="tServImg1" >
+                        <input type="text" class="tServImg1" 
+                            onfocus='setMarcatoreRiga("tableOfServiceImageLevels","tServImg",1)'
+                            onclick='setMarcatoreRiga("tableOfServiceImageLevels","tServImg",1)'
+                            onmouseover='setMarcatoreRiga("tableOfServiceImageLevels","tServImg",1)'
+                            onchange='gestisciRiga("tableOfServiceImageLevels","tServImg",1)'>
+                    </td>
+                    <td>
+                        <input type="text" class="tServImg1">
+                    </td>
+                </tr>
+            </table>
             <br>
             <label>DiscoveryPort</label> 
             <input class="form-control" type=text id=serviceDiscoveryPort value="">
