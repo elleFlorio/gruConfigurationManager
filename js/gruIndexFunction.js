@@ -1039,6 +1039,9 @@ var writeServiceConfig = function() {
     }
   }
 
+  var imgMap = {};
+  m["Image"]["Levels"] = createMap("tableOfServiceImageLevels", imgMap, 2);
+
   var conMap = {};
 
   m["Constraints"] = createMap("tableOfServiceConstraints",conMap,2);
@@ -2357,12 +2360,12 @@ var checkServiceValues = function(){
     document.getElementById("serviceType").style.backgroundColor = "#ff471a";
   }
 
-  if (document.getElementById("serviceImage").value > " " ) {
-    document.getElementById("serviceImage").style.backgroundColor = "#fff";
+  if (document.getElementById("serviceImageActive").value > " " ) {
+    document.getElementById("serviceImageActive").style.backgroundColor = "#fff";
   } else {
     error = 2;
     alert("Valore non valido per Image");
-    document.getElementById("serviceImage").style.backgroundColor = "#ff471a";
+    document.getElementById("serviceImageActive").style.backgroundColor = "#ff471a";
   }
 
   if (document.getElementById("serviceName").value > " " ) {
