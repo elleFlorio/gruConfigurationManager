@@ -1,5 +1,5 @@
 # Gru Configuration Manager
-Configuration Manager for clusters configurations of Gru automatic management of Docker containers 
+Configuration Manager for clusters configurations of Gru automatic management of Docker containers. This is a fork from the original project by [Gexkill](https://github.com/Gexkill)
 
 For pdf tecnichal documentation [Docs](https://github.com/Gexkill/gruConfigurationManager/blob/master/Documentation/ProgettoFinale_AngeloClaudioRe_758172.pdf)
 
@@ -18,12 +18,12 @@ export HostPort = ...
 
 RUN on cmd 
 ~~~
-docker run --name=grucm -p ${HostPort}:${HostPort} -e "HostIP=${HostIP}" -e "HostPort=${HostPort}" --rm gexkill/grucm:webapp
+docker run --name=grucm -p ${HostPort}:${HostPort} -e "HostIP=${HostIP}" -e "HostPort=${HostPort}" --rm elleflorio/grucm
 ~~~
 
 or if you don't want delete the container evertytime
 ~~~
-docker run --name=grucm -p ${HostPort}:${HostPort} -e "HostIP=${HostIP}" -e "HostPort=${HostPort}" gexkill/grucm:webapp
+docker run --name=grucm -p ${HostPort}:${HostPort} -e "HostIP=${HostIP}" -e "HostPort=${HostPort}" elleflorio/grucm
 ~~~
 
 and when you run gruCM
@@ -65,7 +65,7 @@ For documentation:
 
 Install the Gru Configuration Manager package
 ~~~
-go get github.com/Gexkill/gruConfigurationManager
+go get github.com/elleFlorio/gruConfigurationManager
 ~~~
 
 run Etcd client
@@ -77,7 +77,7 @@ where GOPATH$ is the directory where you installed etcd
 
 Finally run your server:
 ~~~
-cd GOPATH$/src/github.com/Gexkill/gruConfigurationManager
+cd GOPATH$/src/github.com/elleFlorio/gruConfigurationManager
 go run main.go 
 ~~~
 
