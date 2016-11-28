@@ -476,11 +476,12 @@ var readAgentConfig = function(idAgente) {
     document.getElementById("agentDaemonUrl").value = "";
     document.getElementById("agentDaemonTimeout").value = "";
     document.getElementById("agentAutonomicLoopTimeInterval").value = "";
+    document.getElementById("agentEnableDynamicLoop").value = true;
     document.getElementById("agentAutonomicPlannerStrategy").value = "Select PlannerStrategy";
-    document.getElementById("agentAutonomicEnableLogReading").checked = true; 
-    document.getElementById("agentCommunicationLoopTimeInterval").value = "";
+    document.getElementById("agentAutonomicEnableLogReading").checked = true;
     document.getElementById("agentCommunicationMaxFriends").value = "";
     document.getElementById("agentStorageService").value = "Select StorageService";
+    document.getElementById("metricLoopTimeInterval").value = "";
     document.getElementById("agentMetricService").value = "Select MetricService";
 
     document.getElementById("influxdbMetricService").style.display = "none";
@@ -503,12 +504,13 @@ var readAgentConfig = function(idAgente) {
     document.getElementById("agentDaemonUrl").value = m.Docker.DaemonUrl;
     document.getElementById("agentDaemonTimeout").value = m.Docker.DaemonTimeout;
     document.getElementById("agentAutonomicLoopTimeInterval").value = m.Autonomic.LoopTimeInterval;
+    document.getElementById("agentEnableDynamicLoop").value = m.Autonomic.EnableDynamicLoop
     document.getElementById("agentAutonomicPlannerStrategy").value = m.Autonomic.PlannerStrategy;  
     document.getElementById("agentAutonomicEnableLogReading").checked = m.Autonomic.EnableLogReading;
-    document.getElementById("agentCommunicationLoopTimeInterval").value = m.Communication.LoopTimeInterval;
     document.getElementById("agentCommunicationMaxFriends").value = m.Communication.MaxFriends;
     document.getElementById("agentStorageService").value = m.Storage.StorageService;
     document.getElementById("agentMetricService").value = m.Metric.MetricService;
+    document.getElementById("metricLoopTimeInterval").value = m.Metric.LoopTimeInterval;
     switch(document.getElementById("agentMetricService").value){
       case "influxdb":
         document.getElementById("influxdbMetricService").style.display = "inline";
@@ -946,17 +948,18 @@ var writeAgentConfig = function() {
         },
         "Autonomic": {
           "LoopTimeInterval":parseFloat(document.getElementById("agentAutonomicLoopTimeInterval").value),
+          "EnableDynamicLoop":document.getElementById("agentEnableDynamicLoop").checked,
           "PlannerStrategy":document.getElementById("agentAutonomicPlannerStrategy").value,
           "EnableLogReading":document.getElementById("agentAutonomicEnableLogReading").checked
         },
         "Communication":{
-          "LoopTimeInterval":parseFloat(document.getElementById("agentCommunicationLoopTimeInterval").value),
           "MaxFriends":parseFloat(document.getElementById("agentCommunicationMaxFriends").value)
         },
         "Storage": {
           "StorageService":document.getElementById("agentStorageService").value
         },
         "Metric": {
+          "LoopTimeInterval":parseFloat(document.getElementById("metricLoopTimeInterval").value),
           "MetricService":document.getElementById("agentMetricService").value,
           "Configuration": {
             "Url":document.getElementById("agentUrl").value,
@@ -2224,14 +2227,6 @@ var checkAgentValues = function() {
     alert("PlannerStrategy not selected");
   }
 
-  if (parseInt(document.getElementById("agentCommunicationLoopTimeInterval").value) > 0 ) {
-    document.getElementById("agentCommunicationLoopTimeInterval").style.backgroundColor = "#fff";
-  } else {
-    error = 2;
-    alert("Valore non valido per Communication LoopTimeInterval");
-    document.getElementById("agentCommunicationLoopTimeInterval").style.backgroundColor = "#ff471a";
-  }
-
   if (parseInt(document.getElementById("agentCommunicationMaxFriends").value) > 0 ) {
     document.getElementById("agentCommunicationMaxFriends").style.backgroundColor = "#fff";
   } else {
@@ -2603,8 +2598,6 @@ var clearAgentErrors = function() {
   document.getElementById("agentDaemonTimeout").style.backgroundColor = "#fff";
 
   document.getElementById("agentAutonomicLoopTimeInterval").style.backgroundColor = "#fff";
-
-  document.getElementById("agentCommunicationLoopTimeInterval").style.backgroundColor = "#fff";
 
   document.getElementById("agentCommunicationMaxFriends").style.backgroundColor = "#fff";
 

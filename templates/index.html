@@ -326,6 +326,12 @@
             <label>Autonomic LoopTimeInterval</label> 
             <input class="form-control" type=text id=agentAutonomicLoopTimeInterval value="">
             <br>
+            <div>
+                <label>EnableDynamicLoop</label>
+                <input 
+                    type=checkbox id="agentEnableDynamicLoop" 
+                    value="true" checked>
+            </div>
             <label>Autonomic PlannerStrategy</label>
             <select class="form-control" id="agentAutonomicPlannerStrategy">
                 <option selected>Select PlannerStrategy</option>
@@ -341,10 +347,6 @@
                     value="true" checked>
             </div>
             <br>
-            <label>Communication LoopTimeInterval</label> 
-            <input class="form-control" 
-                type=text id=agentCommunicationLoopTimeInterval value="">
-            <br>
             <label>Communication MaxFriends</label> 
             <input class="form-control" type=text id=agentCommunicationMaxFriends value="">
             <br>
@@ -356,6 +358,10 @@
         </div>
         <div class=alignDisposition id=agentMetricServiceAlign>
             <label>MetricService</label>
+            <label>Metric LoopTimeInterval</label> 
+            <input class="form-control" 
+                type=text id=metricLoopTimeInterval value="">
+            <br>
             <select class="form-control" 
                 id="agentMetricService" onchange='selectAgentMetricService()'>
                 <option selected>Select MetricService</option>
